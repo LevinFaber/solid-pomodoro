@@ -6,15 +6,11 @@ import {
   Switch,
   Match,
   Accessor,
-  batch,
   createMemo,
 } from "solid-js";
 import { createStore } from "solid-js/store";
 
-const timeDiffFormater = new Intl.RelativeTimeFormat("en-US", {
-  style: "short",
-  numeric: "always",
-});
+
 const tf = Intl.DateTimeFormat("en-US", {
   timeStyle: "medium",
 });

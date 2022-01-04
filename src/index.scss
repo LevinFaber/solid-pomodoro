@@ -1,4 +1,3 @@
-$serif:  -apple-system, BlinkMacSystemFont, "Noto Serif", serif;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Ubuntu", sans-serif;
@@ -25,13 +24,11 @@ body {
 }
 
 h1 {
-  font-family: $serif;
   font-size: 1.5rem;
   margin-bottom: 3rem;
 }
 
 h2 {
-  font-family: $serif;
   margin-top: 2rem;
   font-size: 1.2rem;
 }

@@ -1,0 +1,175 @@
+$serif:  -apple-system, BlinkMacSystemFont, "Noto Serif", serif;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Ubuntu", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --lightorange: #fdf2f9;
+  --lightpurple: #e5d9fd;
+  --pink: #e367a6;
+  --purple: #e5d9fd;
+  --blue: #9aefdf;
+  --text: #0b1b4d;
+
+
+  color: var(--text);
+
+  background: linear-gradient(170deg, var(--lightorange), var(--lightpurple));
+}
+
+
+#root {
+  padding: 1rem;
+  height: 100vh;
+}
+
+h1 {
+  font-family: $serif;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+h2 {
+  font-family: $serif;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  cursor: pointer;
+  outline: 0;
+  border: 2px solid var(--pink);
+  color: var(--pink);
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 1.2rem;
+  background-color: white;
+  font-weight: bold;
+  transition: 200ms all ease-in-out;
+  
+  --primary-color: var(--pink);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  &:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  &.preset {
+    border-radius: 0;
+    border-left-width: 0; 
+    
+    &:first-child {
+      border-left-width: 2px; 
+      border-radius: 1.2rem 0 0 1.2rem ;
+    }
+    &:last-child {
+      border-radius: 0 1.2rem 1.2rem 0;
+    }
+
+  }
+
+  &.submit {
+    margin-top: 3rem;
+  }
+  &.pos {
+    --primary-color: var(--blue);
+  }
+
+  &.neg {
+    --primary-color: var(--text);
+    
+  }
+}
+
+input {
+  padding: 1rem;
+  font-size: 1.2rem;
+  outline: 0;
+  border:none;
+  border-radius: 1.2rem;
+  position: relative;
+  &::after {
+    content: "Minutes Work";
+    position: absolute;
+  }
+}
+
+.blinking {
+  animation: blink 0.5s alternate infinite cubic-bezier(1, 0, 0, 1);
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+main {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  max-width: 450px;
+  margin: auto;
+  border-radius: 2rem;
+  background: #ffffff54;
+  box-shadow: 0 6px 20px 0px rgb(0 0 0 / 2%);
+  backdrop-filter: blur(40px);
+  padding: 2rem;
+
+}
+
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  label {
+    margin-bottom: 00.25rem;
+  }
+}
+
+.presets {
+  display: flex;
+
+  .preset {
+    flex: 1 0 auto;
+  }
+}
+
+.gauge {
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  position: relative;
+  margin: auto;
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--lightorange);
+    margin: 1.5rem;
+    border-radius: 100%;
+    position: absolute;
+
+    span {
+      display: block;
+      width: auto;
+      text-align: center;
+    }
+  }
+}

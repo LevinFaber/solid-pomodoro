@@ -10,6 +10,7 @@ import {
 } from "solid-js";
 import { createStore } from "solid-js/store";
 
+import sound from "./assets/success_bell-6776.mp3";
 
 const tf = Intl.DateTimeFormat("en-US", {
   timeStyle: "medium",
@@ -90,13 +91,20 @@ const Timer = ({ workN, breakN }: { workN: number; breakN: number }) => {
       }
     });
 
+  const playSound = () => {
+    const audio = new Audio(sound);
+    audio.play();
+  }
+
   const startBreak = () => {
+    playSound();
     setState((state) => ({
       state: "break",
       target: getTarget(state.breakN),
     }));
   };
   const startWork = () => {
+    playSound();
     setState((state) => ({
       state: "work",
       target: getTarget(state.breakN),

@@ -1,14 +1,11 @@
 import {
   Component,
-  createEffect,
   createSignal,
-  For,
   Show,
-  Switch,
-  Match,
-  createMemo,
   batch,
 } from "solid-js";
+
+import.meta.env
 
 import Timer from "./Timer";
 
@@ -17,8 +14,11 @@ const presets: [number,number][] = [
   [15, 5],
   [25, 5],
   [50, 10],
-];
 
+];
+if (import.meta.env.DEV) {
+  presets.push([0.1,0.1]);
+}
 const App: Component = () => {
   const [showTimer, setShowTimer] = createSignal(false);
   const [workMinutes, setWork] = createSignal<number>(25);

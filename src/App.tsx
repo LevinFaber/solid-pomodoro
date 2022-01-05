@@ -17,7 +17,6 @@ const presets: [number,number][] = [
   [15, 5],
   [25, 5],
   [50, 10],
-  [0.1, 0.1],
 ];
 
 const App: Component = () => {
@@ -52,6 +51,7 @@ const App: Component = () => {
           <div className="form-group">
             <label for="work">Work (minutes):</label>
             <input
+              id="work"
               type="number"
               name="work"
               value={workMinutes()}
@@ -62,8 +62,9 @@ const App: Component = () => {
             />
           </div>
           <div className="form-group">
-            <label for="work">Break (minutes):</label>
+            <label for="break">Break (minutes):</label>
             <input
+              id="break"
               type="number"
               name="break"
               value={breakMinutes()}

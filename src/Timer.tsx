@@ -117,9 +117,8 @@ const Timer = ({ workN, breakN }: { workN: number; breakN: number }) => {
     state: state.state,
   });
 
-  let animationFrame: number = 0;
 
-  const updateTimer = () => {
+  const updateState = () => { // Update State and timing while in background. Update rendering once on switch to prevent unsightly flash.
     if (!state.paused) {
       if (state.state === "work" || state.state === "break") {
         const current = new Date().getTime();
@@ -130,31 +129,35 @@ const Timer = ({ workN, breakN }: { workN: number; breakN: number }) => {
           } else if (state.state === "work") {
             startBreak();
           }
-        } else {
-          const newParts = formatDifferenceParts(msLeft < 0 ? 0 : msLeft);
-          const newRatio = getRatio(
-            state.state === "work" ? state.workN : state.breakN,
-            msLeft
-          );
+          updateGaugeState(msLeft, state, setGuageState);
+        }
+      }
+    }
+    setTimeout(updateState, 33);
+  };
+  updateState();
 
-          setGuageState({
-            ratio: newRatio,
-            timeParts: newParts,
-            state: state.state,
-          });
+
+  let animationFrame: number = 0;
+  const updateAnimation = () => { // Update Animation on each frame which is actually rendered
+    if (!state.paused) {
+      if (state.state === "work" || state.state === "break") {
+        const current = new Date().getTime();
+        const msLeft = state.target - current;
+        if (msLeft > 0) {
+          updateGaugeState(msLeft, state, setGuageState); 
         }
       }
     }
 
-    animationFrame = window.requestAnimationFrame(updateTimer);
+    animationFrame = window.requestAnimationFrame(updateAnimation);
   };
+  animationFrame = window.requestAnimationFrame(updateAnimation);
 
-  animationFrame = window.requestAnimationFrame(updateTimer);
-
-  createEffect(() => {
+  createEffect(() => { // Stop animating  while hidden, restart when coming back.
     document.addEventListener("visibilitychange", function () {
       if (document.visibilityState === "visible") {
-        updateTimer();
+        updateAnimation();
       } else {
         if (animationFrame) {
           window.cancelAnimationFrame(animationFrame);
@@ -205,6 +208,20 @@ interface GaugeConfig {
   timeParts: [number, number];
   ratio: number;
   state: "work" | "break";
+}
+
+function updateGaugeState(msLeft: number, state: StateI, setGuageState: <U extends GaugeConfig>(v: (U extends Function ? never : U) | ((prev: GaugeConfig) => U)) => U) {
+  const newParts = formatDifferenceParts(msLeft < 0 ? 0 : msLeft);
+  const newRatio = getRatio(
+    state.state === "work" ? state.workN : state.breakN,
+    msLeft
+  );
+
+  setGuageState({
+    ratio: newRatio,
+    timeParts: newParts,
+    state: state.state,
+  });
 }
 
 function Gauge({ config }: { config: Accessor<GaugeConfig> }) {

@@ -1,4 +1,5 @@
 import { Component, createSignal, Show, batch } from "solid-js";
+import Notification from "./Notification";
 
 import Timer from "./Timer";
 
@@ -75,6 +76,9 @@ const App: Component = () => {
           </button>
         </>
       </Show>
+      <p>
+        <Notification></Notification>
+      </p>
     </main>
   );
 };

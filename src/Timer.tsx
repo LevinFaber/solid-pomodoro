@@ -64,6 +64,16 @@ const getRatio = (totalMs: number, msLeft: number) => {
   return msLeft / totalMs;
 };
 
+const notifiyer = (title: string, bodyN: number) => {
+  if (Notification.permission === "granted") {
+    new Notification(title, {
+      body: formatDifference(bodyN),
+      vibrate: [50],
+    })
+  }
+}
+
+
 const Timer = ({ workN, breakN }: { workN: number; breakN: number }) => {
   const [state, setState] = createStore<StateI>(getResetState(workN, breakN));
 
@@ -97,6 +107,7 @@ const Timer = ({ workN, breakN }: { workN: number; breakN: number }) => {
   }
 
   const startBreak = () => {
+    notifiyer(`Take a break.`, state.breakN);
     playSound();
     setState((state) => ({
       state: "break",
@@ -104,6 +115,7 @@ const Timer = ({ workN, breakN }: { workN: number; breakN: number }) => {
     }));
   };
   const startWork = () => {
+    notifiyer("Get back to work 💻️", state.workN);
     playSound();
     setState((state) => ({
       state: "work",
